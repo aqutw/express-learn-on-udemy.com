@@ -26,6 +26,8 @@ app.use(cookieParser());
 // app.use(express.session({secret: 'asdkfjalkfdjsalj'})) ---> req.session
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(require('stylus').middleware( path.join(__dirname, 'public') ))
+
 /*
 Load Balancing: Clusters Nginx HAProxy Varnish
 */

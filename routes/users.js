@@ -9,6 +9,14 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+router.get('/try_params/:id', function(req, res, next) {
+  var id = req.params.id
+  var str = require('crypto').createHash('sha1')
+            .update(new Date().toDateString() + id)
+            .digest('hex')
+  res.send(str)
+})
+
 router.get('/try_jade', function(req, res, next) {
   res.render('try_jade', {a:1, b:2})
 })

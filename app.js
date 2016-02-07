@@ -17,13 +17,37 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(bodyParser.json(/* {type:'application/*+json'} // Parse various different JONS type */));
+app.use(bodyParser.urlencoded({ extended: false })); // Parse application/x-www-form-urlencoded ( see also: multer express-busboy connect-busboy node-multiparty )
+//app.use(bodyParser.raw({type:'application/vnd.custom-type'})) // Parse some custom thing into a Buffer
+
 app.use(cookieParser());
+// app.use(express.session({secret: 'asdkfjalkfdjsalj'})) ---> req.session
 app.use(express.static(path.join(__dirname, 'public')));
+
+/*
+Load Balancing: Clusters Nginx HAProxy Varnish
+*/
 
 app.use('/', routes);
 app.use('/users', users);
+
+/*
+app[get|post|put|delete|all|use](urlPattern, reqHandler1, reqHandler2, ...)
+app.param('name', callback(req, res, next, param_value//<--'name'  ))
+Example:
+app.param('collectionName', function(req, res, next, collectionName){
+  req.collection = db.collection(collectionName)
+  return next()
+});
+app.get('/collection/:collectionName', function(req, res, next){
+  req.collection.find({}, {limit:10, sort:{'_id':-1}}).toArray(function(err, results){
+    if (err) return next(err)
+    res.send(results)
+  })
+})
+*/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

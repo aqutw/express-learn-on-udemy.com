@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var debug = require('debug')('debug1')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -37,7 +38,10 @@ router.get('/:id', function(req, res, next) {
     , req.host, req.fresh, req.stale, isAJAX, req.protocol, req.secure, req.subdomains, 
     req.originalUrl //  /users/asdlaf
     )
-  var str = '<h1>'+req.params.id+'</h1><form method=post action="/users/"><input type="text" name=username value=test_username /><input type="text" name="email" value="test_email@aaa.com" /><input type=submit value="Submit" /></form>'
+  var str = '<h1>'+req.params.id+'</h1><form method=post action="/users/"><input type="text" name=username value=test_username /><input type="text" name="email" value="test_email@aaa.com" />'+
+    '<input type=checkbox name=chk value=chk1 />'+
+    '<input type=checkbox name=chk value=chk2 />'+
+    '<input type=submit value="Submit" /></form>'
   res.send(str)
 })
 router.post('/', function(req, res, next) {
@@ -54,7 +58,7 @@ router.post('/', function(req, res, next) {
   /*
   res.status( !exists ? 404 : (authorized ? 200 : 401) )
   */
-
+  debug(req.body)
   res.set('Content-Type', 'text/plain')
   res.send('<h1>pure content without html effect</h1>')
 

@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "crypto": "0.0.3",
+    "debug": "^2.2.0",
     "nodemon": "^1.8.1",
     "stylus": "^0.53.0"
   }

@@ -9,6 +9,10 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+router.get('/try_jade', function(req, res, next) {
+  res.render('try_jade', {a:1, b:2})
+})
+
 router.get('/:id', function(req, res, next) {
   // console.log(req.params); //{ id: 'asdfa' }
   console.log('req.route',req.route, req.route.path /* ':id' */ )
@@ -48,5 +52,6 @@ router.post('/', function(req, res, next) {
 
   //res.status(404).end() //sending a empty response
 })
+
 
 module.exports = router;
